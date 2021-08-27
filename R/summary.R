@@ -1,5 +1,25 @@
 #@x is an ei.object
 
+
+
+#' Summarize Ecological Inference Estimates
+#' 
+#' `summary' method for the class `ei'.
+#' 
+#' 
+#' @param object An \code{ei} object from the function \code{ei}.
+#' @param \dots A list of options to return in graphs.  See values below.
+#' @author Gary King <<email: king@@harvard.edu>> and Molly Roberts <<email:
+#' molly.e.roberts@@gmail.com>>
+#' @references Gary King (1997). A Solution to the Ecological Inference
+#' Problem.  Princeton: Princeton University Press.
+#' @examples
+#' 
+#' data(sample)
+#' formula = t ~ x
+#' dbuf <- ei(formula=formula, total="n",data=sample)
+#' print(summary(dbuf))
+#' 
 summary.ei <- function(object,...){
   if("psi" %in% names(object)){
   ei1 <- object

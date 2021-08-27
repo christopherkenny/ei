@@ -1,5 +1,51 @@
 # 3-d Tomography Plot for 2x3 Case
 
+
+
+#' Plotting 2x3 Ecological Inference Estimates in 3 dimensions
+#' 
+#' A tomography plot in 3 dimensions for RxC Ecological Inference data and an
+#' estimated Ecological Inference model in RxC data.
+#' 
+#' Requires rgl package and rgl viewer.
+#' 
+#' @param formula A formula of the form \code{cbind(col1,
+#' col2,...)~cbind(row1,row2,...)}
+#' @param data data that contains the data that corresponds to the formula
+#' @param total `total' is the name of the variable in the dataset that
+#' contains the number of individuals in each unit
+#' @param lci logical value specifying the use of the Law of Conservation of
+#' Ink, where the implicit information in the data is represented through color
+#' gradients, i.e. the color of the plane is a function of the area of the
+#' tomography plane.
+#' @param estimates logical value specifying whether the point estimates of
+#' \eqn{\beta}'s are included for each observation on the tomography plot.
+#' @param ci logical value specifying whether the estimated confidence ellipse
+#' is included on the tomography plot.
+#' @param level numeric value from 0 to 1 specifying the significance level of
+#' the confidence ellipse; eg. .95 refers to 95\% confidence ellipse.
+#' @param seed seed value for model estimation.
+#' @param color color of tomography planes if lci=F.
+#' @param transparency numeric value from 0 to 1 specifying transparency of
+#' tomography planes; 0 is entirely transparent.
+#' @param light logical value specifying whether lights should be included in
+#' the rgl interface. The inclusion of lights will create shadows in the plot
+#' that may distort colors.
+#' @param rotate logical value specifying whether the plot will rotate for 20
+#' seconds.
+#' @author Gary King <<email: king@@harvard.edu>>; Molly Roberts <<email:
+#' molly.e.roberts@@gmail.com>>; Soledad Prillaman <<email:
+#' soledadartiz@@fas.harvard.edu..
+#' @references Gary King (1997). A Solution to the Ecological Inference
+#' Problem.  Princeton: Princeton University Press.
+#' @examples
+#' 
+#' data(RxCdata)
+#' formula <- cbind(turnout, noturnout) ~ cbind(white, black, hisp)
+#' tomogRxC3d(formula, RxCdata, total=NULL, lci=TRUE, estimates=TRUE, ci=TRUE, transparency=.5, 
+#' 	light=FALSE, rotate=FALSE)
+#' 
+#' @export tomogRxC3d
 tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE,level=.95,seed=1234,color=hcl(h=30,c=100,l=60),transparency=.75,light=FALSE,rotate=TRUE){
   ##Run Through RxC Code Once (from Molly's original tomogRxC function)
   #require(grDevices)

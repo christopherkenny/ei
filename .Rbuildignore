@@ -2,3 +2,5 @@
 .git
 vignettes/copyRd.Rout
 README.md
+^.*\.Rproj$
+^\.Rproj\.user$

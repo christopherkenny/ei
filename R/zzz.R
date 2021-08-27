@@ -1,4 +1,3 @@
-
 #@numb - number of covariates for bb
 #@covs - number of total parameters to estimate
 #@all the rest in documentation
@@ -1084,6 +1083,31 @@ return(input)
 #data = data
 #names = Names of groups in order: X-axis, Y-axis, Other
 #covariate = extra group or covariate to create colors in the plot for
+
+
+#' Plotting Ecological Inference Estimates with eiRxC information
+#' 
+#' A tomography plot for an estimated Ecological Inference model in RxC data.
+#' 
+#' 
+#' @param formula A formula of the form \code{cbind(col1,
+#' col2,...)~cbind(row1,row2,...)}
+#' @param data data that contains the data that corresponds to the formula
+#' @param total `total' is the name of the variable in the dataset that
+#' contains the number of individuals in each unit
+#' @param refine specifies the amount of refinement for the image.  Higher
+#' numbers mean better resolution.
+#' @author Gary King <<email: king@@harvard.edu>> and Molly Roberts <<email:
+#' molly.e.roberts@@gmail.com>>
+#' @references Gary King (1997). A Solution to the Ecological Inference
+#' Problem.  Princeton: Princeton University Press.
+#' @examples
+#' 
+#' data(RxCdata)
+#' formula = cbind(turnout, noturnout) ~ cbind(white, black,hisp)
+#' tomogRxC(formula, data=RxCdata)
+#' 
+#' @export tomogRxC
 tomogRxC <- function(formula, data, total=NULL, refine=100){
 	#require(sp)  Now specified as Import
     noinfocount = 0

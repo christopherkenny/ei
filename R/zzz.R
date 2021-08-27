@@ -29,7 +29,7 @@
       #t, x, n, Zb, Zw, numb=numb, erho, esigma, ebeta,
       #ealphab, ealphaw, Rfun) - phiv[i]
 	#}
-  
+
   #Calculates importance ratio
   import1 <- apply(as.matrix(1:nsims),1,function(i)
                   -like(as.vector(draw[i,]),t, x, n, Zb, Zw,
@@ -53,7 +53,7 @@
 #numb numw -- number of covaraites for bb and bw
 
 .createR <- function(sub, Rfun, bb, bw, sb,sw, rho, x, numb, numw){
-  out <- NULL 
+  out <- NULL
   lower = cbind(-bb[sub]/sb, -bw[sub]/sw)
   upper = cbind(-bb[sub]/sb+1/sb, -bw[sub]/sw+1/sw)
   mean=c(0,0)
@@ -167,7 +167,7 @@ if (Rfun==5){
       #t, x, n, Zb, Zw, numb=numb, erho, esigma, ebeta,
       #ealphab, ealphaw, Rfun) - phiv[i]
 	#}
-  
+
   #Calculates importance ratio
   import1 <- apply(as.matrix(1:nsims),1,function(i)
                   -like(as.vector(draw[i,]),t, x, n, Zb, Zw,
@@ -275,7 +275,7 @@ if (Rfun==5){
         centre=c(mean(bb),mean(bw)),level=.35), col="red",lwd=4)
     points(mean(bb),mean(bw),col="pink",  pch=15)
   }
-  
+
 #tomog4 <- function(bb,bw,sb,sw,rho){
 #	lines(ellipse(matrix(c(1,rho,rho,1),nrow=2), #scale=c(sb,sw),centre=c(mean(bb),mean(bw)),level=.914), #col="blue",lwd=1, lty=3)
 #	lines(ellipse(matrix(c(1,rho,rho,1),nrow=2), #scale=c(sb,sw),centre=c(mean(bb),mean(bw)),level=.35), #col="red",lwd=1, lty=3)
@@ -729,7 +729,7 @@ betaw", ylab="True betaw",cex=.1)
   ei.object$sbetaw
 }
 }
-   
+
 
 .phi <- function(ei.object){
   ei.object$phi
@@ -762,7 +762,7 @@ betaw", ylab="True betaw",cex=.1)
   UAbetaW <- weighted.mean(bounds[,4], Nw)
   return(matrix(c(LAbetaB, UAbetaB, LAbetaW,UAbetaW), nrow=2))
 }
-	
+
 .aggs <- function(ei.object){
    if(!("betabs"%in% names(ei.object))){
    message("Error: This eiread function requires an ei.sim object.")
@@ -788,7 +788,7 @@ betaw", ylab="True betaw",cex=.1)
   return(cbind(Bbgg, Bwgg))
 }
 }
-	
+
 .maggs <- function(ei.object){
    if(!("betabs"%in% names(ei.object))){
    message("Error: This eiread function requires an ei.sim object.")
@@ -814,7 +814,7 @@ betaw", ylab="True betaw",cex=.1)
   return(c(mean(Bbgg), mean(Bwgg), sd(Bbgg), sd(Bwgg)))
 }
 }
-	
+
 .VCaggs <- function(ei.object){
    if(!("betabs"%in% names(ei.object))){
    message("Error: This eiread function requires an ei.sim object.")
@@ -842,7 +842,7 @@ betaw", ylab="True betaw",cex=.1)
   return(vc)
 }
 }
-	
+
 .CI80b <- function(ei.object){
    if(!("betabs"%in% names(ei.object))){
    message("Error: This eiread function requires an ei.sim object.")
@@ -859,7 +859,7 @@ betaw", ylab="True betaw",cex=.1)
   return(cbind(lwr,upr))
 }
 }
-	
+
 .CI80w <- function(ei.object){
    if(!("betabs"%in% names(ei.object))){
    message("Error: This eiread function requires an ei.sim object.")
@@ -876,7 +876,7 @@ betaw", ylab="True betaw",cex=.1)
   return(cbind(lwr,upr))
 }
 }
-	
+
 .eaggbias <- function(ei.object){
    if(!("betabs"%in% names(ei.object))){
    message("Error: This eiread function requires an ei.sim object.")
@@ -893,7 +893,7 @@ betaw", ylab="True betaw",cex=.1)
   return(output)
 }
 }
-	
+
 .goodman <- function(ei.object){
   x <- ei.object$x
   t <- ei.object$t
@@ -938,7 +938,7 @@ getinput <- function(){
     input<-last.input+1
     for(i in 1:n){
       lines(bbounds[i,], wbounds[i, ], col="yellow")
-    }  
+    }
     lines(bbounds[input,], wbounds[input,], col="black")
   }
   else{ #input is observation number
@@ -996,7 +996,7 @@ getinput <- function(){
     input<-last.input+1
     for(i in 1:n){
       lines(bbounds[i,], wbounds[i, ], col="yellow")
-    }  
+    }
     lines(bbounds[input,], wbounds[input,], col="black")
   }
   else{ #input is observation number
@@ -1021,7 +1021,7 @@ getinput <- function(){
     input<-last.input+1
   }
   else{ #input is observation number
-    input<-as.integer(input) 
+    input<-as.integer(input)
   }
 
   par(mfrow=c(2,2), oma=c(0,0,2,0))
@@ -1037,7 +1037,7 @@ getinput <- function(){
     yaxs="i",xaxs="i", main="Posterior Distribution of betaW",
     xlab="Bw",ylab="Density")
   lines(c(0,.25*(max(density(betaw[input,])$y)+1)),lwd=3)
-  
+
 # plot simulated values of betaB and betaW of precinct
   colors = runif(length(betabs),26,51)
   plot(betabs[input,], betaws[input,], xlim=c(0,1), ylim=c(0,1),xaxs="i",
@@ -1059,7 +1059,7 @@ return(input)
 
   betab <- ei.object$betabs
   betaw <- ei.object$betaws
-  
+
  input<-1 #initialize at precinct 1
  last.input<-0
  while(input!="s"){
@@ -1067,7 +1067,7 @@ return(input)
     last.input<-input
     input<-.getinput()
  }
-   
+
 }
 
 
@@ -1086,10 +1086,10 @@ return(input)
 
 
 #' Plotting Ecological Inference Estimates with eiRxC information
-#' 
+#'
 #' A tomography plot for an estimated Ecological Inference model in RxC data.
-#' 
-#' 
+#'
+#'
 #' @param formula A formula of the form \code{cbind(col1,
 #' col2,...)~cbind(row1,row2,...)}
 #' @param data data that contains the data that corresponds to the formula
@@ -1102,11 +1102,11 @@ return(input)
 #' @references Gary King (1997). A Solution to the Ecological Inference
 #' Problem.  Princeton: Princeton University Press.
 #' @examples
-#' 
+#'
 #' data(RxCdata)
 #' formula = cbind(turnout, noturnout) ~ cbind(white, black,hisp)
 #' tomogRxC(formula, data=RxCdata)
-#' 
+#'
 #' @export tomogRxC
 tomogRxC <- function(formula, data, total=NULL, refine=100){
 	#require(sp)  Now specified as Import
@@ -1153,13 +1153,13 @@ tomogRxC <- function(formula, data, total=NULL, refine=100){
 	#Starting point when x is at minimum
 	##
 	#Holding x at its minimum, what are the bounds on y?
-	
+
 	#When x is at its minimum, the new dv and total are:
 	newdv <- dv - (minx*xcat)
-	newtot <- oth + ycat 
+	newtot <- oth + ycat
 	t <- newdv/newtot
 	y <- ycat/newtot
-	
+
 	#The new bounds on the y category are:
 
 	lby <- cbind(miny, (t - maxoth*oth/newtot)/(y))
@@ -1234,7 +1234,7 @@ for(i in 1:dim(hstr)[1]){
         }
 		for(j in 1:length(as.vector(contourx))){
 			contourz[j,] <- contourz[j,] + ifelse(point.in.polygon(rep(contourx[j], length(contourx)), contoury, xaxs, yaxs)==1,1+1/(.1+area),0)
-        
+
 	}
 	}
 	if((exp1[i]==1) & (exp2[i])==0){
@@ -1284,9 +1284,9 @@ for(i in 1:dim(hstr)[1]){
         }
 		for(j in 1:length(as.vector(contourx))){
 			contourz[j,] <- contourz[j,] + ifelse(point.in.polygon(rep(contourx[j], length(contourx)), contoury, xaxs, yaxs)==1,1+1/(.1+area),0)
-         
+
 	}
-		
+
 	}
 	if((exp1[i] + exp2[i])==0 & (exp1[i] + exp2[i] + exp3[i] + exp4[i])!=0){
 		xaxs <- c(hstr[i,1],  lstr[i,1],kink2x,lend[i,1],hend[i,1])
@@ -1436,7 +1436,7 @@ par(xpd=FALSE)
         data <- round(data*data[,total])
 }
 	bnds <- bounds(form, data=data, rows=rows, column =cols,threshold=0)
-    
+
 	#Totals
 	dv <- data[, all.names(form)[3]]
 
@@ -1464,13 +1464,13 @@ par(xpd=FALSE)
 	#Starting point when x is at minimum
 	##
 	#Holding x at its minimum, what are the bounds on y?
-	
+
 	#When x is at its minimum, the new dv and total are:
 	newdv <- dv - (minx*xcat)
-	newtot <- oth + ycat 
+	newtot <- oth + ycat
 	t <- newdv/newtot
 	y <- ycat/newtot
-	
+
 	#The new bounds on the y category are:
 	lby <- cbind(miny, (t - maxoth*oth/newtot)/(y))
 	lby[,2] <- ifelse(y==0, 0, lby[,2])
@@ -1505,7 +1505,7 @@ par(xpd=FALSE)
 	#Low starting points
 	lstr <- cbind(minx, lowy)
 	lend <- cbind(lowx, miny)
-	
+
 	#Colors for covariates
 	if(!is.na(covariate)){
 		redg <- data[,covariate]/(oth-data[,covariate])/max(data[,covariate]/(oth-data[,covariate]))
@@ -1513,26 +1513,26 @@ par(xpd=FALSE)
 	}
 	if(is.na(covariate)){
 		redg <- rep(.5, length(minx))
-		blug <- rep(.5, length(minx))	
+		blug <- rep(.5, length(minx))
 	}
-	
+
 	#Graph labels
 	xl <- paste("Percent", names[1], "Vote Democrat")
 	yl <- paste("Percent", names[2], "Vote Democrat")
 	mn <- paste("Tomography Plot in a 2x3 Table (", names[3], " Other Category)", sep="")
-	
+
 	#Initial plot
 	plot(c(0,0), xlim=c(0,1), ylim=c(0,1), xaxs="i", yaxs="i",xlab=xl, ylab=yl, col="white", main=mn)
 
 	#Only non-NA starting pts are OK
 	ok <- !is.na(hstr[,2]) & !is.na(hend[,1])
-	
+
 	#All different types of polygons
 	exp1 <- hstr[ok,2]>=maxy[ok]
 	exp2 <- hend[ok,1]>=maxx[ok]
 	exp3 <- lstr[ok,2]<=miny[ok]
 	exp4 <- lend[ok,1]<=minx[ok]
-	
+
 	#Subsets all the variables
 	hstr <- hstr[ok,]
 	hend <- hend[ok,]
@@ -1547,7 +1547,7 @@ par(xpd=FALSE)
 	maxx <- maxx[ok]
 	redg <- redg[ok]
 	blug <- blug[ok]
-	
+
 for(i in 1:dim(hstr)[1]){
 	#4 corner polygon
 	if((exp1[i] + exp2[i] + exp3[i] + exp4[i])==0){
@@ -1563,10 +1563,10 @@ for(i in 1:dim(hstr)[1]){
 		#if(area>0 & !is.nan(area)){alpha = ((1-area)^(3)+.2)*.83}
 		if(area>0 & !is.nan(area)){alpha = min(.5/(area*(n)),1)}
 		if(area==0 | is.nan(area)){alpha=.05}
-		border = alpha 
+		border = alpha
 		polygon(xaxs,yaxs, col=rgb(redg[i],0,blug[i],alpha=alpha), border=rgb(redg[i],0,blug[i],alpha=1), lty=2)
 	}
-	
+
 	#Create more corners
 	if((exp1[i]==1) & (exp2[i])==0){
 		cut <- (dv[i]-(oth[i])*minoth[i])/xcat[i] - maxy[i]*ycat[i]/xcat[i]
@@ -1600,7 +1600,7 @@ for(i in 1:dim(hstr)[1]){
 		kink2x <- c(minx[i], cut2)
 		kink2y <- c(cut, miny[i])
 	}
-	
+
 	#Plot 5-sided polygon
 	if((exp3[i] + exp4[i])==0 & (exp1[i] + exp2[i] + exp3[i] + exp4[i])!=0){
 		xaxs <- c(hstr[i,1],  lstr[i,1],lend[i,1],hend[i,1], kink1x)
@@ -1616,11 +1616,11 @@ for(i in 1:dim(hstr)[1]){
 		if(area>0 & !is.nan(area)){alpha = min(.5/(area*(n)),1)}
 		#if(area>0 & !is.nan(area)){alpha = ((1-area)^(3)+.2)*.53}
 		if(area==0 | is.nan(area)){alpha=.05}
-		border = alpha 
+		border = alpha
 		polygon(xaxs,yaxs, col=rgb(redg[i],0,blug[i],alpha=alpha), border=rgb(redg[i],0,blug[i],alpha=1), lty=2)
-		
+
 	}
-	
+
 	#Another 5-sided polygon
 	if((exp1[i] + exp2[i])==0 & (exp1[i] + exp2[i] + exp3[i] + exp4[i])!=0){
 		xaxs <- c(hstr[i,1],  lstr[i,1],kink2x,lend[i,1],hend[i,1])
@@ -1635,10 +1635,10 @@ for(i in 1:dim(hstr)[1]){
 		if(area>0 & !is.nan(area)){alpha = min(.5/(area*(n)),1)}
 		#if(area>0 & !is.nan(area)){alpha = ((1-area)^(3)+.2)*.53}
 		if(area==0 | is.nan(area)){alpha=.05}
-		border = alpha 
+		border = alpha
 		polygon(xaxs,yaxs, col=rgb(redg[i],0,blug[i],alpha=alpha), border=rgb(redg[i],0,blug[i],alpha=1), lty=2)
 	}
-	
+
 	#Plot 6-sided polygons
 	if((exp1[i] + exp2[i])!=0 & (exp3[i] + exp4[i])!=0){
 		xaxs <- c(hstr[i,1],  lstr[i,1],kink2x,lend[i,1],hend[i,1], kink1x)
@@ -1652,14 +1652,14 @@ for(i in 1:dim(hstr)[1]){
 		area <- abs(c1-c2)/2
 		#if(area>0 & !is.nan(area)){alpha = 1/(1+b*area)}
 		if(area>0 & !is.nan(area)){alpha = min(.5/(area*(n)),1)}
-		#if(area>0 & !is.nan(area)){alpha = ((1-area)^(3)+.2)*.53}	
+		#if(area>0 & !is.nan(area)){alpha = ((1-area)^(3)+.2)*.53}
 		if(area==0 | is.nan(area)){alpha=.05}
-		border = alpha 
+		border = alpha
 		polygon(xaxs,yaxs, col=rgb(redg[i],0,blug[i],alpha=alpha), border=rgb(redg[i],0,blug[i],alpha=1), lty=2)
 		}
 	}
 }
 
 
-	
+
 

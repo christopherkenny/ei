@@ -3,12 +3,12 @@
 
 
 #' Plotting 2x3 Ecological Inference Estimates in 3 dimensions
-#' 
+#'
 #' A tomography plot in 3 dimensions for RxC Ecological Inference data and an
 #' estimated Ecological Inference model in RxC data.
-#' 
+#'
 #' Requires rgl package and rgl viewer.
-#' 
+#'
 #' @param formula A formula of the form \code{cbind(col1,
 #' col2,...)~cbind(row1,row2,...)}
 #' @param data data that contains the data that corresponds to the formula
@@ -33,19 +33,21 @@
 #' that may distort colors.
 #' @param rotate logical value specifying whether the plot will rotate for 20
 #' seconds.
+#'
+#' @export
+#' @return TODO
+#'
 #' @author Gary King <<email: king@@harvard.edu>>; Molly Roberts <<email:
 #' molly.e.roberts@@gmail.com>>; Soledad Prillaman <<email:
 #' soledadartiz@@fas.harvard.edu..
 #' @references Gary King (1997). A Solution to the Ecological Inference
 #' Problem.  Princeton: Princeton University Press.
 #' @examples
-#' 
 #' data(RxCdata)
 #' formula <- cbind(turnout, noturnout) ~ cbind(white, black, hisp)
-#' tomogRxC3d(formula, RxCdata, total=NULL, lci=TRUE, estimates=TRUE, ci=TRUE, transparency=.5, 
+#' tomogRxC3d(formula, RxCdata, total=NULL, lci=TRUE, estimates=TRUE, ci=TRUE, transparency=.5,
 #' 	light=FALSE, rotate=FALSE)
-#' 
-#' @export tomogRxC3d
+#'
 tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE,level=.95,seed=1234,color=hcl(h=30,c=100,l=60),transparency=.75,light=FALSE,rotate=TRUE){
   ##Run Through RxC Code Once (from Molly's original tomogRxC function)
   #require(grDevices)
@@ -54,7 +56,7 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
     stop("Package rgl is needed for the tomogRxC3d function to work. Please install it.",
       call. = FALSE)
   }
-  
+
   noinfocount <- 0
   form <- formula
   dvname <- terms.formula(formula)[[2]]
@@ -71,15 +73,15 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
   #Assign other category
   bndsoth <- bnds$bounds[[3]]
   oth <- data[,all.names(form)[length(all.names(form))]]
-  
+
   #Assign x-axis category
   bndsx <- bnds$bounds[[1]]
   xcat <- data[,all.names(form)[6]]
-  
+
   #Assign y-axis category
   bndsy <- bnds$bounds[[2]]
   ycat <- data[,all.names(form)[7]]
-  
+
   #Minimums & Maximums
   minx <- bndsx[,1]
   miny <- bndsy[,1]
@@ -87,31 +89,31 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
   maxx <- bndsx[,2]
   maxy <- bndsy[,2]
   maxoth <- bndsoth[,2]
-  
+
   #####
   #Starting point when x is at minimum
   ##
   #Holding x at its minimum, what are the bounds on y?
-  
+
   #When x is at its minimum, the new dv and total are:
   newdv <- dv - (minx*xcat)
-  newtot <- oth + ycat 
+  newtot <- oth + ycat
   t <- newdv/newtot
   y <- ycat/newtot
-  
+
   #The new bounds on the y category are:
-  
+
   lby <- cbind(miny, (t - maxoth*oth/newtot)/(y))
   lby[,2] <- ifelse(y==0, 0, lby[,2])
   lowy <- apply(lby,1,max)
   hby <- cbind((t-minoth*oth/newtot)/y,maxy)
   highy <- apply(hby,1,min)
-  
+
   #####
   #Starting point when x is at maximum
   ##
   #Holding x at its maximum, what are the bounds on y?
-  
+
   #The new bounds on x are:
   newtot <- oth + xcat
   newdv <- dv - (miny*ycat)
@@ -122,25 +124,25 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
   lowx <- apply(lbx,1,max)
   hbx <- cbind((t-minoth*oth/newtot)/x,maxx)
   highx <- apply(hbx,1,min)
-  
+
   #Graph starting points
   #High starting points
   hstr <- cbind(minx, highy)
   #High ending points
   hend <- cbind(highx, miny)
-  
+
   #Low starting points
   lstr <- cbind(minx, lowy)
   lend <- cbind(lowx, miny)
-  
+
   xl <- paste("Percent", names[1], dvname[2])
   yl <- paste("Percent", names[2], dvname[2])
   zl <- paste("Percent", names[3], dvname[2])
   mn <- paste("3-d Tomography Plot in a 2x3 Table")
-  
+
   #plot(c(0,0), xlim=c(0,1), ylim=c(0,1), xaxs="i", yaxs="i",xlab=xl, ylab=yl, col="white", main=mn)
-  
-  
+
+
   ok <- !is.na(hstr[,2]) & !is.na(hend[,1])
   exp1 <- hstr[ok,2]>=maxy[ok]
   exp2 <- hend[ok,1]>=maxx[ok]
@@ -157,11 +159,11 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
   xcat <- xcat[ok]
   maxy <- maxy[ok]
   maxx <- maxx[ok]
-  
+
   ##Create Matrices for coordinates
   coords.xaxs<-matrix(data=NA,nrow=dim(hstr)[1],ncol=10)
   coords.yaxs<-matrix(data=NA,nrow=dim(hstr)[1],ncol=10)
-  
+
   for(i in 1:dim(hstr)[1]){
     if((exp1[i] + exp2[i] + exp3[i] + exp4[i])==0){
       xaxs <- c(hstr[i,1],  lstr[i,1],lend[i,1],hend[i,1])
@@ -251,32 +253,32 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
     coords.xaxs[i,]<-coords.axs[1,]
     coords.yaxs[i,]<-coords.axs[2,]
   }
-  
+
   ##Record Coordinate
   w.coord<-coords.xaxs[,colSums(is.na(coords.xaxs))<nrow(coords.xaxs)]
   b.coord<-coords.yaxs[,colSums(is.na(coords.yaxs))<nrow(coords.yaxs)]
-  
-  
+
+
   #######################################################################
-  
+
   ##THIS WILL BE A FN WHERE YOU SPECIFY NAME OF TURNOUT, TOTAL, CATEGORIES
-  
+
   ##Combine Coordinates for 3d Graph
   w<-matrix(NA,nrow=dim(hstr)[1],ncol=dim(w.coord)[2])
   b<-matrix(NA,nrow=dim(hstr)[1],ncol=dim(w.coord)[2])
   h<-matrix(NA,nrow=dim(hstr)[1],ncol=dim(w.coord)[2])
-  
+
   #Extract Data needed for accounting Identity
   N <- data[,all.names(form)[3]] + data[,all.names(form)[4]]
   t <- data[,all.names(form)[3]]/N
   xb <- data[,all.names(form)[7]]/N
   xw <- data[,all.names(form)[6]] /N
-  
+
   #Using the Accounting Identity from King (1997), calculate coordinates for remaining category
   ##T = B_b*X_b + B_w*X_w + B_h*X_h = B_b*X_b + B_w*X_w + B_h*(1-X_b-X_h)
   coords<-matrix(NA, nrow=dim(w.coord)[2], ncol=3)
   for(i in 1: dim(hstr)[1]){
-    coords<-cbind(w.coord[i,],b.coord[i,],rep(NA, nrow(coords)))  
+    coords<-cbind(w.coord[i,],b.coord[i,],rep(NA, nrow(coords)))
     for(j in 1:nrow(coords)){
       #Account for cases where xh=0
       if(1-xb[i]-xw[i] < 1e-5){coords[j,3]<-0}else{
@@ -292,22 +294,22 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
     b[i,]<-coords[,2]
     h[i,]<-coords[,3]
   }
-  
+
   ##Run RxC Model
   set.seed(seed)
   dbuf <- ei(formula=formula, data=data)
-  
+
   ##Calculate Center of Ellipsoid: mean of estimates
   means<-apply(dbuf$draws$Beta, MARGIN=2, FUN=mean) #Mean of all simulations for each precinct and beta
   means.w <- means[seq(1, length(means), 6)]
   means.b <- means[seq(2, length(means), 6)]
   means.h <- means[seq(3, length(means), 6)]
-  
+
   ##Calculate Variance of Ellipsoid: average variance of simulations
   ses.w <- sd(means.w)
   ses.b <- sd(means.b)
   ses.h <- sd(means.h)
-  
+
   ##Calculate Covariance of Ellipsoid (Rho): average covariance of simulations
   covs.bw<-cov(means.w,means.b)
   covs.wh<-cov(means.w,means.h)
@@ -316,10 +318,10 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
   #Rho if covariance divided by multiplied variance
   rho<-matrix(c(1,covs.bw/(ses.b*ses.w),covs.bh/(ses.b*ses.h),covs.bw/(ses.b*ses.w),1,covs.wh/(ses.h*ses.w)
                 ,covs.bh/(ses.b*ses.h),covs.wh/(ses.h*ses.w),1),nrow=3)
-  
-  
+
+
   ######################################
-  
+
   ##CALCULATE AREA OF PLANES for LoCoI
   area <- rep(NA, nrow(w))
   for(i in 1:nrow(w)){
@@ -334,7 +336,7 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
       # Get 3d coordinates
       p <- cbind(b[i,],w[i,],h[i,])
       p <- na.omit(p)
-      
+
       # Get equation of plane
       fit <- lm(h[i,] ~ b[i,] + w[i,])
       coefs <- coef(fit)
@@ -342,13 +344,13 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
       b.eq <- coefs[3]
       c.eq <- -1
       d.eq <- coefs["(Intercept)"]
-      
+
       # Get normal vector
       n <- matrix(c(a.eq,b.eq,c.eq), nrow=1, ncol=3)
-      
+
       # Calculate Basis Vector on Plane
       u1 <- matrix(c( (p[2,1]-p[1,1]), (p[2,2]-p[1,2]), (p[2,3]-p[1,3])), nrow=1, ncol=3)
-      
+
       # Get Second Basis Vector as cross-product of n and u1
       CrossProduct3D <- function(x, y, i=1:3) {
         # Project inputs into 3D, since the cross product only makes sense in 3D.
@@ -365,26 +367,26 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
         return (x[Index3D(i + 1)] * y[Index3D(i + 2)] -
                   x[Index3D(i + 2)] * y[Index3D(i + 1)])
       }
-      
+
       u2 <- matrix(CrossProduct3D(n,u1), nrow=1, ncol=3)
-      
+
       # Normalize the basis vectors
       e1 <- u1/sqrt(u1[1,1]^2 + u1[1,2]^2 + u1[1,3]^2)
       e2 <- u2/sqrt(u2[1,1]^2 + u2[1,2]^2 + u2[1,3]^2)
-      
+
       # Get the projection matrix from basis vectors
       pm <- rbind(e1, e2)
-      
+
       # Get the 2d coordinates from projection matrix
       p.2d <- t(pm%*%t(p))
-      
+
       # Create matrix of points in counter-clockwise order (need to systematize)
       ccorder <- rev(chull(p.2d)) #Convex hull gives clockwise order then reverse
       parea <- p.2d[order(ccorder),]
-      
+
       # Add first row to bottom of matrix
       parea <- rbind(parea, parea[1,])
-      
+
       # Calcluate area as 1/2 of determinant (need to systematize)
       plus.area <- 0
       for(j in 2:dim(parea)[1]){
@@ -399,17 +401,17 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
       area[i] <- 1/2*(plus.area-minus.area)
     }
   }
-  
+
   scale<-(area-min(area))/(max(area)-min(area))*100
-  
+
   #################################
   ## Plot Based on Plot Type
-  
+
   ##Tomography Plot - with/without point estimates
   if(ci==F){
     rgl::plot3d(b,w,h, type="s", col="black", size=0.3, xlim=c(0,1), ylim=c(0,1), zlim=c(0,1), xlab=yl, ylab=xl, zlab=zl)
     ##Add the plane for each set of points
-    for(i in 1:dim(hstr)[1]){  
+    for(i in 1:dim(hstr)[1]){
       #Two point plane (line)
       if(length(unique(w[i,]))==1 | length(unique(b[i,]))==1 | length(unique(h[i,]))==1){
         if(lci==T){rgl::lines3d(x = b[i,], y = w[i,], z=h[i,], col=hcl(h=30,c=100,l=scale[i],alpha=1))}
@@ -429,15 +431,15 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
     # With point estimates - mean of average simulations across precincts
     if(estimates==T){rgl::spheres3d(means.b,means.w, means.h, col="black", radius=.03, add=T)}
   }
-  
+
   ##With Confidence Elipse
-  if(ci==T){  
+  if(ci==T){
     rgl::plot3d(rgl::ellipse3d(x=rho , scale= c(ses.b,ses.w,ses.h), centre= c(mean(means.b),mean(means.w), mean(means.h))
                      , alpha=.8, level=level) ,color=hcl(h=10,c=60,l=20), xlim=c(0,1), ylim=c(0,1), zlim=c(0,1), xlab=yl, ylab=xl, zlab=zl, lit=light)
     rgl::points3d(mean(means.b),mean(means.w), mean(means.h), col="black", size=10, add=T) #Mean of average simulations across precincts
     rgl::points3d(b,w,h, col="black", size=1, add=T)
     ##Add the plane for each set of points
-    for(i in 1:dim(hstr)[1]){  
+    for(i in 1:dim(hstr)[1]){
       #Two point plane (line)
       if(length(unique(w[i,]))==1 | length(unique(b[i,]))==1 | length(unique(h[i,]))==1){
         if(lci==T){rgl::lines3d(x = b[i,], y = w[i,], z=h[i,], col=hcl(h=30,c=100,l=scale[i],alpha=1))}
@@ -457,6 +459,6 @@ tomogRxC3d <- function(formula,data,total=NULL,lci=TRUE,estimates=FALSE,ci=FALSE
     # With point estimates - mean of average simulations across precincts
     if(estimates==T){rgl::spheres3d(means.b,means.w, means.h, col="black", radius=.03, add=T)}
   }
-  
+
   if(rotate==T){rgl::play3d( rgl::spin3d(rpm=2.5), duration=20)}
 }

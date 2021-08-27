@@ -118,6 +118,9 @@ options for RxC ei.}
 
 \item{usrfun}{see documentation in \code{eiPack} for options for RxC ei.}
 }
+\value{
+TODO
+}
 \description{
 \code{ei} is the main command in the package \code{EI}.  It gives
 observation-level estimates (and various related statistics) of
@@ -133,7 +136,6 @@ numerically using \code{summary(ei.object)}.  Quantities of interest can be
 calculated using \code{eiread(ei.object)}.
 }
 \examples{
-
 data(sample)
 form <- t ~ x
 dbuf <- ei(form,total="n",data=sample)

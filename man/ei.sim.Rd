@@ -9,8 +9,14 @@ ei.sim(ei.object)
 \arguments{
 \item{ei.object}{\code{ei} object}
 }
+\value{
+TODO
+}
 \description{
 Simulate EI solution via importance sampling
+}
+\examples{
+# TODO
 }
 \references{
 Gary King (1997). A Solution to the Ecological Inference

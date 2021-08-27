@@ -37,6 +37,8 @@ lower~upper \eqn{80\%} confidence intervals for \eqn{\beta_i^w}.  See
 section 8.2.} \item{eaggbias}{Regressions of estimated \eqn{\beta_i^b} and
 \eqn{\beta_i^w} on a constant term and \eqn{X_i}.} \item{goodman}{Goodman's
 Regression.  See Section 3.1}
+
+TODO
 }
 \description{
 \code{eiread} is the command that pulls quantities of interest from the
@@ -44,7 +46,6 @@ Regression.  See Section 3.1}
 requested by the user.
 }
 \examples{
-
 data(sample)
 formula = t ~ x
 dbuf <- ei(formula=formula, total="n",data=sample)

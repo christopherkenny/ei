@@ -86,9 +86,10 @@
 #' Problem.  Princeton: Princeton University Press.
 #'
 #' @export
+#' @return TODO
 #'
 #' @examples
-#' #' data(sample)
+#' data(sample)
 #' form <- t ~ x
 #' dbuf <- ei(form,total="n",data=sample)
 #' summary(dbuf)
@@ -223,7 +224,12 @@ ei.estimate <- function(t,x,n,id,Zb=1,Zw=1, data=NA, erho=.5, esigma=.5, ebeta=.
 #' molly.e.roberts@@gmail.com>>
 #' @references Gary King (1997). A Solution to the Ecological Inference
 #' Problem.  Princeton: Princeton University Press.
-#' @export ei.sim
+#'
+#' @export
+#' @return TODO
+#'
+#' @examples
+#' # TODO
  ei.sim <- function(ei.object){
    hessian <- ei.object$hessianC
    erho <- ei.object$erho

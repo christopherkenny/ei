@@ -11,6 +11,9 @@
 
 \item{\dots}{A list of options to return in graphs.  See values below.}
 }
+\value{
+TODO
+}
 \description{
 `summary' method for the class `ei'.
 }

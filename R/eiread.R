@@ -5,12 +5,12 @@
 
 
 #' Quantities of Interest from Ecological Inference Estimation
-#' 
+#'
 #' \code{eiread} is the command that pulls quantities of interest from the
 #' \code{ei} object.  The command returns a list of quantities of interest
 #' requested by the user.
-#' 
-#' 
+#'
+#'
 #' @param ei.object An \code{ei} object from the function \code{ei}.
 #' @param \dots A list of quantities of interest for \code{eiread()} to return.
 #' See values below.
@@ -38,18 +38,22 @@
 #' section 8.2.} \item{eaggbias}{Regressions of estimated \eqn{\beta_i^b} and
 #' \eqn{\beta_i^w} on a constant term and \eqn{X_i}.} \item{goodman}{Goodman's
 #' Regression.  See Section 3.1}
+#'
+#' @export
+#' @return TODO
+#'
 #' @author Gary King <<email: king@@harvard.edu>> and Molly Roberts <<email:
 #' molly.e.roberts@@gmail.com>>
 #' @references Gary King (1997). A Solution to the Ecological Inference
 #' Problem.  Princeton: Princeton University Press.
+#'
 #' @examples
-#' 
 #' data(sample)
 #' formula = t ~ x
 #' dbuf <- ei(formula=formula, total="n",data=sample)
 #' eiread(dbuf, "phi")
 #' eiread(dbuf, "betab", "betaw")
-#' 
+#'
 #' @export eiread
 eiread <- function(ei.object, ...){
   function.list <- list("betab" = .betaB, "betaw" = .betaW,

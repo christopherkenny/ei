@@ -56,6 +56,9 @@ that may distort colors.}
 \item{rotate}{logical value specifying whether the plot will rotate for 20
 seconds.}
 }
+\value{
+TODO
+}
 \description{
 A tomography plot in 3 dimensions for RxC Ecological Inference data and an
 estimated Ecological Inference model in RxC data.
@@ -64,10 +67,9 @@ estimated Ecological Inference model in RxC data.
 Requires rgl package and rgl viewer.
 }
 \examples{
-
 data(RxCdata)
 formula <- cbind(turnout, noturnout) ~ cbind(white, black, hisp)
-tomogRxC3d(formula, RxCdata, total=NULL, lci=TRUE, estimates=TRUE, ci=TRUE, transparency=.5, 
+tomogRxC3d(formula, RxCdata, total=NULL, lci=TRUE, estimates=TRUE, ci=TRUE, transparency=.5,
 	light=FALSE, rotate=FALSE)
 
 }

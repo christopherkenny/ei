@@ -15,15 +15,17 @@ each district}
 
 \item{n}{size of each observation, e.g. number of voters in each district}
 }
+\value{
+TODO
+}
 \description{
 Returns analytical bounds from accounting identity on unknown table
 relationships beta_b, beta_w, from known, observed, table marginals, x, t
 (and sample size n).
 }
 \examples{
-
-	data(census1910)
-	output<-bounds1(x=census1910$x, t=census1910$t, n=census1910$n)
+data(census1910)
+output<-bounds1(x=census1910$x, t=census1910$t, n=census1910$n)
 
 }
 \references{

@@ -8,19 +8,19 @@
 
 
 #' Ecological Inference Estimation
-#' 
+#'
 #' \code{ei} is the main command in the package \code{EI}.  It gives
 #' observation-level estimates (and various related statistics) of
 #' \eqn{\beta_i^b} and \eqn{\beta_i^w} given variables \eqn{T_i} and \eqn{X_i}
 #' (\eqn{i=1,...,n}) in this accounting identity: \eqn{T_i=\beta_i^b*X_i +
 #' \beta_i^w*(1-X_i)}.  Results are stored in an \code{ei} object, that can be
 #' read with \code{summary()} or \code{eiread()} and graphed in \code{plot()}.
-#' 
+#'
 #' The \code{EI} algorithm is run using the \code{ei} command.  A summary of
 #' the results can be seen graphically using \code{plot(ei.object)} or
 #' numerically using \code{summary(ei.object)}.  Quantities of interest can be
 #' calculated using \code{eiread(ei.object)}.
-#' 
+#'
 #' @aliases EI ei
 #' @param formula A formula of the form \eqn{t ~x} in the \eqn{2x2} case and
 #' \eqn{cbind(col1,col2,...) ~ cbind(row1,row2,...)} in the RxC case.
@@ -79,19 +79,21 @@
 #' @param ret.mcmc default = TRUE: see documentation in \code{eiPack} for
 #' options for RxC ei.
 #' @param usrfun see documentation in \code{eiPack} for options for RxC ei.
+#'
 #' @author Gary King <<email: king@@harvard.edu>> and Molly Roberts <<email:
 #' molly.e.roberts@@gmail.com>>
 #' @references Gary King (1997). A Solution to the Ecological Inference
 #' Problem.  Princeton: Princeton University Press.
+#'
+#' @export
+#'
 #' @examples
-#' 
-#' data(sample)
+#' #' data(sample)
 #' form <- t ~ x
 #' dbuf <- ei(form,total="n",data=sample)
 #' summary(dbuf)
-#' 
-#' @export ei
-  ei <- function(formula, total=NULL, Zb=1,Zw=1, id=NA, data=NA, erho=.5, esigma=.5,
+#'
+ei <- function(formula, total=NULL, Zb=1,Zw=1, id=NA, data=NA, erho=.5, esigma=.5,
                ebeta=.5, ealphab=NA, ealphaw=NA, truth=NA, simulate=TRUE,covariate=NULL, lambda1=4, lambda2=2, covariate.prior.list=NULL, tune.list=NULL, start.list=NULL, sample=1000, thin=1, burnin=1000, verbose=0, ret.beta="r", ret.mcmc=TRUE, usrfun=NULL){
     #Extract formula
     dv <- terms.formula(formula)[[2]]
@@ -100,7 +102,7 @@
     x <- as.character(iv)
     n <- as.character(total)
     id <- as.character(id)
-    
+
     if(length(dv)==1){
     print("Running 2x2 ei")
 
@@ -149,7 +151,7 @@ ei.estimate <- function(t,x,n,id,Zb=1,Zw=1, data=NA, erho=.5, esigma=.5, ebeta=.
     if(is.character(Zw)) Zw <- data[[Zw]]
     id <- data[[id]]
   }
-  
+
   Zb <- as.matrix(Zb)
   Zw <- as.matrix(Zw)
 
@@ -212,10 +214,10 @@ ei.estimate <- function(t,x,n,id,Zb=1,Zw=1, data=NA, erho=.5, esigma=.5, ebeta=.
 
 
 #' Simulate EI Solution via Importance Sampling
-#' 
+#'
 #' Simulate EI solution via importance sampling
-#' 
-#' 
+#'
+#'
 #' @param ei.object \code{ei} object
 #' @author Gary King <<email: king@@harvard.edu>> and Molly Roberts <<email:
 #' molly.e.roberts@@gmail.com>>

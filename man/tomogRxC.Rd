@@ -24,9 +24,8 @@ A tomography plot for an estimated Ecological Inference model in RxC data.
 \examples{
 
 data(RxCdata)
-formula = cbind(turnout, noturnout) ~ cbind(white, black,hisp)
-tomogRxC(formula, data=RxCdata)
-
+formula <- cbind(turnout, noturnout) ~ cbind(white, black, hisp)
+tomogRxC(formula, data = RxCdata)
 }
 \references{
 Gary King (1997). A Solution to the Ecological Inference

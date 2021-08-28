@@ -138,7 +138,7 @@ calculated using \code{eiread(ei.object)}.
 \examples{
 data(sample)
 form <- t ~ x
-dbuf <- ei(form,total="n",data=sample)
+dbuf <- ei(form, total = "n", data = sample)
 summary(dbuf)
 
 }

@@ -20,10 +20,9 @@ TODO
 \examples{
 
 data(sample)
-formula = t ~ x
-dbuf <- ei(formula=formula, total="n",data=sample)
+formula <- t ~ x
+dbuf <- ei(formula = formula, total = "n", data = sample)
 print(summary(dbuf))
-
 }
 \references{
 Gary King (1997). A Solution to the Ecological Inference

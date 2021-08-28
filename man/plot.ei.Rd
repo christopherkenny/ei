@@ -79,11 +79,10 @@ can be passed as an argument and is used for ``tomogD'' and ``tomog'' plots.
 }
 \examples{
 data(sample)
-formula = t ~ x
-dbuf <- ei(formula=formula, total="n",data=sample)
+formula <- t ~ x
+dbuf <- ei(formula = formula, total = "n", data = sample)
 plot(dbuf, "tomog")
 plot(dbuf, "tomog", "betab", "betaw", "xtfit")
-
 }
 \references{
 Gary King (1997). A Solution to the Ecological Inference

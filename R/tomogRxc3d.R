@@ -1,7 +1,3 @@
-# 3-d Tomography Plot for 2x3 Case
-
-
-
 #' Plotting 2x3 Ecological Inference Estimates in 3 dimensions
 #'
 #' A tomography plot in 3 dimensions for RxC Ecological Inference data and an
@@ -42,6 +38,7 @@
 #' soledadartiz@@fas.harvard.edu..
 #' @references Gary King (1997). A Solution to the Ecological Inference
 #' Problem.  Princeton: Princeton University Press.
+#'
 #' @examples
 #' data(RxCdata)
 #' formula <- cbind(turnout, noturnout) ~ cbind(white, black, hisp)
@@ -49,7 +46,11 @@
 #'   total = NULL, lci = TRUE, estimates = TRUE, ci = TRUE, transparency = .5,
 #'   light = FALSE, rotate = FALSE
 #' )
-tomogRxC3d <- function(formula, data, total = NULL, lci = TRUE, estimates = FALSE, ci = FALSE, level = .95, seed = 1234, color = hcl(h = 30, c = 100, l = 60), transparency = .75, light = FALSE, rotate = TRUE) {
+#'
+tomogRxC3d <- function(formula, data, total = NULL, lci = TRUE, estimates = FALSE,
+                       ci = FALSE, level = .95, seed = 1234,
+                       color = hcl(h = 30, c = 100, l = 60), transparency = .75,
+                       light = FALSE, rotate = TRUE) {
   ## Run Through RxC Code Once (from Molly's original tomogRxC function)
   # require(grDevices)
 
@@ -350,7 +351,8 @@ tomogRxC3d <- function(formula, data, total = NULL, lci = TRUE, estimates = FALS
   # Create Rho Matrix
   # Rho if covariance divided by multiplied variance
   rho <- matrix(c(
-    1, covs.bw / (ses.b * ses.w), covs.bh / (ses.b * ses.h), covs.bw / (ses.b * ses.w), 1, covs.wh / (ses.h * ses.w),
+    1, covs.bw / (ses.b * ses.w), covs.bh / (ses.b * ses.h),
+    covs.bw / (ses.b * ses.w), 1, covs.wh / (ses.h * ses.w),
     covs.bh / (ses.b * ses.h), covs.wh / (ses.h * ses.w), 1
   ), nrow = 3)
 
@@ -361,7 +363,8 @@ tomogRxC3d <- function(formula, data, total = NULL, lci = TRUE, estimates = FALS
   area <- rep(NA, nrow(w))
   for (i in 1:nrow(w)) {
     # 2-sided Line
-    if (length(unique(w[i, ])) == 1 | length(unique(b[i, ])) == 1 | length(unique(h[i, ])) == 1) {
+    if (length(unique(w[i, ])) == 1 | length(unique(b[i, ])) == 1 |
+        length(unique(h[i, ])) == 1) {
       if (length(na.omit(w[i, ])) > 2) {
         area[i] <- (sqrt(abs(h[i, 1] - h[i, 2])^2 + abs(b[i, 1] - b[i, 2])^2)) * .01
       } # Multiply by epsilon to weight it appropriately small
@@ -390,7 +393,8 @@ tomogRxC3d <- function(formula, data, total = NULL, lci = TRUE, estimates = FALS
       n <- matrix(c(a.eq, b.eq, c.eq), nrow = 1, ncol = 3)
 
       # Calculate Basis Vector on Plane
-      u1 <- matrix(c((p[2, 1] - p[1, 1]), (p[2, 2] - p[1, 2]), (p[2, 3] - p[1, 3])), nrow = 1, ncol = 3)
+      u1 <- matrix(c((p[2, 1] - p[1, 1]), (p[2, 2] - p[1, 2]), (p[2, 3] - p[1, 3])),
+                   nrow = 1, ncol = 3)
 
       # Get Second Basis Vector as cross-product of n and u1
       CrossProduct3D <- function(x, y, i = 1:3) {
@@ -450,13 +454,17 @@ tomogRxC3d <- function(formula, data, total = NULL, lci = TRUE, estimates = FALS
 
   ## Tomography Plot - with/without point estimates
   if (ci == F) {
-    rgl::plot3d(b, w, h, type = "s", col = "black", size = 0.3, xlim = c(0, 1), ylim = c(0, 1), zlim = c(0, 1), xlab = yl, ylab = xl, zlab = zl)
+    rgl::plot3d(b, w, h, type = "s", col = "black", size = 0.3,
+                xlim = c(0, 1), ylim = c(0, 1), zlim = c(0, 1),
+                xlab = yl, ylab = xl, zlab = zl)
     ## Add the plane for each set of points
     for (i in 1:dim(hstr)[1]) {
       # Two point plane (line)
-      if (length(unique(w[i, ])) == 1 | length(unique(b[i, ])) == 1 | length(unique(h[i, ])) == 1) {
+      if (length(unique(w[i, ])) == 1 | length(unique(b[i, ])) == 1 |
+          length(unique(h[i, ])) == 1) {
         if (lci == T) {
-          rgl::lines3d(x = b[i, ], y = w[i, ], z = h[i, ], col = hcl(h = 30, c = 100, l = scale[i], alpha = 1))
+          rgl::lines3d(x = b[i, ], y = w[i, ], z = h[i, ],
+                       col = hcl(h = 30, c = 100, l = scale[i], alpha = 1))
         } else {
           rgl::lines3d(x = b[i, ], y = w[i, ], z = h[i, ], col = color)
         }
@@ -469,7 +477,8 @@ tomogRxC3d <- function(formula, data, total = NULL, lci = TRUE, estimates = FALS
         d <- -1
         e <- coefs["(Intercept)"]
         if (lci == T) {
-          rgl::planes3d(a, c, d, e, alpha = transparency, col = hcl(h = 30, c = 100, l = scale[i]), lit = light)
+          rgl::planes3d(a, c, d, e, alpha = transparency,
+                        col = hcl(h = 30, c = 100, l = scale[i]), lit = light)
         } else {
           rgl::planes3d(a, c, d, e, alpha = transparency, col = color, lit = light)
         }
@@ -484,19 +493,25 @@ tomogRxC3d <- function(formula, data, total = NULL, lci = TRUE, estimates = FALS
   ## With Confidence Elipse
   if (ci == T) {
     rgl::plot3d(rgl::ellipse3d(
-      x = rho, scale = c(ses.b, ses.w, ses.h), centre = c(mean(means.b), mean(means.w), mean(means.h)),
+      x = rho, scale = c(ses.b, ses.w, ses.h),
+      centre = c(mean(means.b), mean(means.w), mean(means.h)),
       alpha = .8, level = level
-    ), color = hcl(h = 10, c = 60, l = 20), xlim = c(0, 1), ylim = c(0, 1), zlim = c(0, 1), xlab = yl, ylab = xl, zlab = zl, lit = light)
-    rgl::points3d(mean(means.b), mean(means.w), mean(means.h), col = "black", size = 10, add = T) # Mean of average simulations across precincts
+    ), color = hcl(h = 10, c = 60, l = 20), xlim = c(0, 1),
+    ylim = c(0, 1), zlim = c(0, 1), xlab = yl, ylab = xl, zlab = zl, lit = light)
+    rgl::points3d(mean(means.b), mean(means.w), mean(means.h),
+                  col = "black", size = 10, add = T) # Mean of average simulations across precincts
     rgl::points3d(b, w, h, col = "black", size = 1, add = T)
     ## Add the plane for each set of points
     for (i in 1:dim(hstr)[1]) {
       # Two point plane (line)
-      if (length(unique(w[i, ])) == 1 | length(unique(b[i, ])) == 1 | length(unique(h[i, ])) == 1) {
+      if (length(unique(w[i, ])) == 1 | length(unique(b[i, ])) == 1 |
+          length(unique(h[i, ])) == 1) {
         if (lci == T) {
-          rgl::lines3d(x = b[i, ], y = w[i, ], z = h[i, ], col = hcl(h = 30, c = 100, l = scale[i], alpha = 1))
+          rgl::lines3d(x = b[i, ], y = w[i, ], z = h[i, ],
+                       col = hcl(h = 30, c = 100, l = scale[i], alpha = 1))
         } else {
-          rgl::lines3d(x = b[i, ], y = w[i, ], z = h[i, ], col = hcl(h = 30, c = 100, l = 60, alpha = 1))
+          rgl::lines3d(x = b[i, ], y = w[i, ], z = h[i, ],
+                       col = hcl(h = 30, c = 100, l = 60, alpha = 1))
         }
       } else {
         # All Others
@@ -507,19 +522,21 @@ tomogRxC3d <- function(formula, data, total = NULL, lci = TRUE, estimates = FALS
         d <- -1
         e <- coefs["(Intercept)"]
         if (lci == T) {
-          rgl::planes3d(a, c, d, e, alpha = .25, col = hcl(h = 30, c = 100, l = scale[i]), lit = light)
+          rgl::planes3d(a, c, d, e, alpha = .25,
+                        col = hcl(h = 30, c = 100, l = scale[i]), lit = light)
         } else {
-          rgl::planes3d(a, c, d, e, alpha = .25, col = hcl(h = 30, c = 100, l = 60), lit = light)
+          rgl::planes3d(a, c, d, e, alpha = .25,
+                        col = hcl(h = 30, c = 100, l = 60), lit = light)
         }
       }
     }
     # With point estimates - mean of average simulations across precincts
-    if (estimates == T) {
+    if (estimates == TRUE) {
       rgl::spheres3d(means.b, means.w, means.h, col = "black", radius = .03, add = T)
     }
   }
 
-  if (rotate == T) {
+  if (rotate == TRUE) {
     rgl::play3d(rgl::spin3d(rpm = 2.5), duration = 20)
   }
 }

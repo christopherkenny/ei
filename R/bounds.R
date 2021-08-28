@@ -1,11 +1,3 @@
-# @x - vector of characteristics, e.g.  perc. of blacks in
-# each district
-# @t - vector o fcharacteristics, e.g. perc. of people that voted in
-# each district
-
-# Computes the bounds for each precinct
-
-
 #' Computes Analytical Bounds from Accounting Identity
 #'
 #' Returns analytical bounds from accounting identity on unknown table
@@ -31,7 +23,7 @@
 #' @examples
 #' data(census1910)
 #' output <- bounds1(x = census1910$x, t = census1910$t, n = census1910$n)
-#' @export bounds1
+#'
 bounds1 <- function(x, t, n) {
   # set basic values
   homindx <- NULL

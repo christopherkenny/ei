@@ -1,6 +1,9 @@
 # Plot to help visualize multiple dimensions.
 
-eiRxCplot <- function(ei.object, random = FALSE, groups, groupnames = groups, informative = FALSE, threshold = .65, title = "EI RxC Plot", xaxis = "betab", yaxis = "betaw", prop = .15, data, estimates = TRUE, legendpos = c(.69, 1)) {
+eiRxCplot <- function(ei.object, random = FALSE, groups, groupnames = groups,
+                      informative = FALSE, threshold = .65, title = "EI RxC Plot",
+                      xaxis = "betab", yaxis = "betaw", prop = .15, data, estimates = TRUE,
+                      legendpos = c(.69, 1)) {
   # ok <- !is.na(ei.object$betab)&!is.na(ei.object$betaw)
   percent <- prop
   x <- ei.object$x
@@ -10,7 +13,8 @@ eiRxCplot <- function(ei.object, random = FALSE, groups, groupnames = groups, in
   bbounds <- cbind(bounds[, 1], bounds[, 2])
   wbounds <- cbind(bounds[, 4], bounds[, 3])
   bounds3 <- na.omit(bounds)
-  unan <- sum(bounds3[, 1] == bounds3[, 2] & bounds3[, 1] == bounds3[, 3] & bounds3[, 1] == bounds3[, 4] & bounds3[, 1] == 1)
+  unan <- sum(bounds3[, 1] == bounds3[, 2] & bounds3[, 1] == bounds3[, 3] &
+                bounds3[, 1] == bounds3[, 4] & bounds3[, 1] == 1)
   n <- dim(bounds)[1]
 
   plot(c(100, 200),
@@ -46,7 +50,9 @@ eiRxCplot <- function(ei.object, random = FALSE, groups, groupnames = groups, in
   cols <- rainbow(length(groups))
   for (j in 1:length(groups)) {
     for (i in 1:n) {
-      if (groupind[i, j] == TRUE & rand[i] == TRUE) lines(bbounds[i, ], wbounds[i, ], col = cols[j], lwd = 1)
+      if (groupind[i, j] == TRUE & rand[i] == TRUE) {
+        lines(bbounds[i, ], wbounds[i, ], col = cols[j], lwd = 1)
+      }
     }
   }
 
@@ -73,5 +79,6 @@ eiRxCplot <- function(ei.object, random = FALSE, groups, groupnames = groups, in
     }
   }
   # if (random==TRUE) text(.85,.97,paste("Unanimous",unan))
-  legend(legendpos[1], legendpos[2], c(groupnames, "Mixed", "CI of Estimates"), col = c(cols, "black", "yellow"), lwd = 1)
+  legend(legendpos[1], legendpos[2], c(groupnames, "Mixed", "CI of Estimates"),
+         col = c(cols, "black", "yellow"), lwd = 1)
 }

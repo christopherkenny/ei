@@ -1,7 +1,4 @@
 # prints summary function
-# @x summary object
-
-
 print.summary <- function(x, ...) {
   sum.object <- x
   dec <- sum.object$precision

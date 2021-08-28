@@ -69,8 +69,10 @@ Requires rgl package and rgl viewer.
 \examples{
 data(RxCdata)
 formula <- cbind(turnout, noturnout) ~ cbind(white, black, hisp)
-tomogRxC3d(formula, RxCdata, total=NULL, lci=TRUE, estimates=TRUE, ci=TRUE, transparency=.5,
-	light=FALSE, rotate=FALSE)
+tomogRxC3d(formula, RxCdata,
+  total = NULL, lci = TRUE, estimates = TRUE, ci = TRUE, transparency = .5,
+  light = FALSE, rotate = FALSE
+)
 
 }
 \references{

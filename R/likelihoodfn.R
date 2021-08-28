@@ -1,8 +1,4 @@
 # Calculates likelihood
-# @numb Number of covariates on bb
-# @Rfun -- what R function to use to calculate
-# @See documentation for description of other parameters
-
 like <- function(param, y, x, n, Zb, Zw, numb, erho, esigma, ebeta,
                  ealphab, ealphaw, Rfun) {
 

@@ -1,7 +1,3 @@
-# @x is an ei.object
-
-
-
 #' Summarize Ecological Inference Estimates
 #'
 #' `summary' method for the class `ei'.
@@ -152,7 +148,8 @@ summary.ei <- function(object, ...) {
     )
     names(output) <- c(
       "Erho", "Esigma", "Ebeta", "N",
-      "Maximum likelihood results in scale of estimation (and se's)", "Aggregate Bounds", "precision"
+      "Maximum likelihood results in scale of estimation (and se's)",
+      "Aggregate Bounds", "precision"
     )
     class(output) <- "summary"
     return(output)

@@ -47,8 +47,8 @@ requested by the user.
 }
 \examples{
 data(sample)
-formula = t ~ x
-dbuf <- ei(formula=formula, total="n",data=sample)
+formula <- t ~ x
+dbuf <- ei(formula = formula, total = "n", data = sample)
 eiread(dbuf, "phi")
 eiread(dbuf, "betab", "betaw")
 

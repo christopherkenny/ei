@@ -1,8 +1,3 @@
-# @x - ei.object to plot
-# Plots in ei.
-
-
-
 #' Plotting Ecological Inference Estimates
 #'
 #' `plot' method for the class `ei'.

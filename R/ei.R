@@ -1,12 +1,3 @@
-# Maximum likelihood estimation
-# for
-# t,x,n,Zb,Zw,data,erho,esigma,ebeta,ealphab,ealphaw,truth,precision
-# see documentation
-
-# @Rfun specifies function used to calculate R in the likelihood
-
-
-
 #' Ecological Inference Estimation
 #'
 #' \code{ei} is the main command in the package \code{EI}.  It gives
@@ -93,8 +84,13 @@
 #' form <- t ~ x
 #' dbuf <- ei(form, total = "n", data = sample)
 #' summary(dbuf)
-ei <- function(formula, total = NULL, Zb = 1, Zw = 1, id = NA, data = NA, erho = .5, esigma = .5,
-               ebeta = .5, ealphab = NA, ealphaw = NA, truth = NA, simulate = TRUE, covariate = NULL, lambda1 = 4, lambda2 = 2, covariate.prior.list = NULL, tune.list = NULL, start.list = NULL, sample = 1000, thin = 1, burnin = 1000, verbose = 0, ret.beta = "r", ret.mcmc = TRUE, usrfun = NULL) {
+#'
+ei <- function(formula, total = NULL, Zb = 1, Zw = 1, id = NA, data = NA,
+               erho = .5, esigma = .5, ebeta = .5, ealphab = NA, ealphaw = NA,
+               truth = NA, simulate = TRUE, covariate = NULL, lambda1 = 4,
+               lambda2 = 2, covariate.prior.list = NULL, tune.list = NULL,
+               start.list = NULL, sample = 1000, thin = 1, burnin = 1000,
+               verbose = 0, ret.beta = "r", ret.mcmc = TRUE, usrfun = NULL) {
   # Extract formula
   dv <- terms.formula(formula)[[2]]
   iv <- terms.formula(formula)[[3]]
@@ -107,7 +103,9 @@ ei <- function(formula, total = NULL, Zb = 1, Zw = 1, id = NA, data = NA, erho =
     print("Running 2x2 ei")
 
     if (simulate == FALSE) {
-      dbuf <- ei.estimate(t, x, n, id = id, data = data, Zb = Zb, Zw = Zw, erho = erho, esigma = esigma, ebeta = ebeta, ealphab = ealphab, ealphaw = ealphaw, truth = truth)
+      dbuf <- ei.estimate(t, x, n, id = id, data = data, Zb = Zb, Zw = Zw,
+                          erho = erho, esigma = esigma, ebeta = ebeta,
+                          ealphab = ealphab, ealphaw = ealphaw, truth = truth)
       return(dbuf)
     }
     if (simulate == TRUE) {
@@ -123,12 +121,14 @@ ei <- function(formula, total = NULL, Zb = 1, Zw = 1, id = NA, data = NA, erho =
       error = function(x) {
         ei(t, x, n,
           id = id,
-          data = data, Zb = Zb, Zw = Zw, erho = 3, esigma = esigma, ebeta = ebeta, ealphab = ealphab, ealphaw = ealphaw, truth = truth
+          data = data, Zb = Zb, Zw = Zw, erho = 3, esigma = esigma,
+          ebeta = ebeta, ealphab = ealphab, ealphaw = ealphaw, truth = truth
         )
       }
       ), error = function(x) {
         ei.estimate(t, x, n,
-          id = id, data = data, Zb = Zb, Zw = Zw, erho = 5, esigma = esigma, ebeta = ebeta, ealphab = ealphab, ealphaw = ealphaw, truth = truth
+          id = id, data = data, Zb = Zb, Zw = Zw, erho = 5, esigma = esigma,
+          ebeta = ebeta, ealphab = ealphab, ealphaw = ealphaw, truth = truth
         )
       })
       dbuf.sim <- ei.sim(dbuf)
@@ -139,7 +139,14 @@ ei <- function(formula, total = NULL, Zb = 1, Zw = 1, id = NA, data = NA, erho =
   if (length(dv) > 1) {
     print("Running eiRxC")
     # If the table is RxC use eiRxC
-    dbuf <- ei.MD.bayes(formula, data = data, total = total, covariate = covariate, lambda1 = lambda1, lambda2 = lambda2, covariate.prior.list = covariate.prior.list, tune.list = tune.list, start.list = start.list, sample = sample, thin = thin, burnin = burnin, verbose = verbose, ret.beta = ret.beta, ret.mcmc = ret.mcmc, usrfun = usrfun)
+    dbuf <- ei.MD.bayes(formula, data = data, total = total, covariate = covariate,
+                        lambda1 = lambda1, lambda2 = lambda2,
+                        covariate.prior.list = covariate.prior.list,
+                        tune.list = tune.list, start.list = start.list,
+                        sample = sample, thin = thin, burnin = burnin,
+                        verbose = verbose, ret.beta = ret.beta, ret.mcmc = ret.mcmc,
+                        usrfun = usrfun
+                        )
     dbuf$data <- data
     dbuf$total <- n
     dbuf$formula <- formula
@@ -148,8 +155,9 @@ ei <- function(formula, total = NULL, Zb = 1, Zw = 1, id = NA, data = NA, erho =
   }
 }
 
-ei.estimate <- function(t, x, n, id, Zb = 1, Zw = 1, data = NA, erho = .5, esigma = .5, ebeta = .5,
-                        ealphab = NA, ealphaw = NA, truth = NA, Rfun = 2, precision = 4) {
+ei.estimate <- function(t, x, n, id, Zb = 1, Zw = 1, data = NA, erho = .5,
+                        esigma = .5, ebeta = .5, ealphab = NA, ealphaw = NA,
+                        truth = NA, Rfun = 2, precision = 4) {
 
   # Check to make sure data is not null
   if (!missing(data)) {

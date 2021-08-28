@@ -1,9 +1,3 @@
-# @ei.object -- ei object
-# @... options
-# Extracts information from ei object
-
-
-
 #' Quantities of Interest from Ecological Inference Estimation
 #'
 #' \code{eiread} is the command that pulls quantities of interest from the
@@ -53,7 +47,7 @@
 #' dbuf <- ei(formula = formula, total = "n", data = sample)
 #' eiread(dbuf, "phi")
 #' eiread(dbuf, "betab", "betaw")
-#' @export eiread
+#'
 eiread <- function(ei.object, ...) {
   function.list <- list(
     "betab" = .betaB, "betaw" = .betaW,

@@ -154,7 +154,7 @@ data(matproii)
 
 The statistical goal is to estimate the fraction of blacks registered ($\beta_i^b$) and the fraction of whites registered ($\beta_i^w$) in each county. These quantities of interest are generally unknown.  However, `ei` also includes an option that allows the user to assess the reliability of the `ei` algorithm when the true quantities of interest are known. To illustrate the use of this ``truth" option, the data also include the true fractions of registered blacks (\verb#tb#) and the true fraction of registered whites (`tw`). 
 
-\subsection{The Basic EI Algorithm}
+## The Basic EI Algorithm
 
 To begin, we perform ecological inference by calling the function
 `ei`. `ei` first computes and maximizes a likelihood

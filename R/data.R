@@ -6,7 +6,7 @@
 #'
 #'
 #' @name census1910
-#' @docType data
+#' @concept data
 #' @format A data frame containing 1030 observations.
 #' @references Gary King. (1997). \emph{A Solution to the Ecological Inference
 #' Problem.} Princeton: Princeton University Press.  Section 13.2:241-5.
@@ -26,7 +26,7 @@ NULL
 #'
 #'
 #' @name eiRxCsample
-#' @docType data
+#' @concept data
 #' @format A data frame containing 93 observations.
 #' @references Gary King (1997). \emph{A Solution to the Ecological Inference
 #' Problem.} Princeton: Princeton University Press.
@@ -47,7 +47,7 @@ NULL
 #'
 #'
 #' @name fultongen
-#' @docType data
+#' @concept data
 #' @format A data frame containing 289 observations.
 #' @references Gary King (1997). \emph{A Solution to the Ecological Inference
 #' Problem.} Princeton: Princeton University Press.  Section 13.1:235-41.
@@ -66,7 +66,7 @@ NULL
 #'
 #'
 #' @name lavoteall
-#' @docType data
+#' @concept data
 #' @format A data frame containing 3262 observations.
 #' @references Gary King (1997). \emph{A Solution to the Ecological Inference
 #' Problem.} Princeton: Princeton University Press.  Section 1.4:22-4.
@@ -84,7 +84,7 @@ NULL
 #'
 #'
 #' @name matproii
-#' @docType data
+#' @concept data
 #' @format A data frame containing 268 observations.
 #' @references Gary King (1997). \emph{A Solution to the Ecological Inference
 #' Problem.} Princeton: Princeton University Press.  Chapter 10.
@@ -101,7 +101,7 @@ NULL
 #'
 #'
 #' @name nj
-#' @docType data
+#' @concept data
 #' @format A data frame containing 493 observations.
 #' @references Gary King (1997). \emph{A Solution to the Ecological Inference
 #' Problem.} Princeton: Princeton University Press.  Section 1.4:24-5.
@@ -118,7 +118,7 @@ NULL
 #'
 #'
 #' @name RxCdata
-#' @docType data
+#' @concept data
 #' @format A data frame containing 60 observations.
 #' @references Gary King (1997). \emph{A Solution to the Ecological Inference
 #' Problem.} Princeton: Princeton University Press.
@@ -132,7 +132,7 @@ NULL
 #'
 #'
 #' @name sample
-#' @docType data
+#' @concept data
 #' @format A vector containing 141 observations.
 #' @references Gary King (1997). \emph{A Solution to the Ecological Inference
 #' Problem.} Princeton: Princeton University Press.

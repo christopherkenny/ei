@@ -72,7 +72,7 @@ proportion of whites who vote ($\beta_i^w$), also in each precinct.
 (For an extended example of `ei`, refer to the user's guide
 below.)  An example of a sequence of these commands are as follows:
 
-```{r, echo = TRUE, eval = FALSE}
+```{r,, eval = FALSE}
 formula <- t ~ x
 dbuf <- ei(formula = formula, total = "n", data = data)
 summary(dbuf)
@@ -147,7 +147,7 @@ computed by (`1-x`). You can load the data into R using the
 command
 
 
-```{r echo = TRUE}
+```{r}
 library(ei)
 data(matproii)
 ```
@@ -175,7 +175,7 @@ example, `n` is the number of people of voting age.
 
 We proceed by performing ecological inference without covariates on the data:
 
-```{r echo = TRUE, eval = TRUE}
+```{r}
 formula <- t ~ x
 dbuf <- ei(formula = formula, total = "n", data = matproii)
 ```
@@ -185,7 +185,7 @@ dbuf <- ei(formula = formula, total = "n", data = matproii)
 
 Next, we use \verb#summary(dbuf)#and \verb#summary(dbufsim)# to obtain general information about the estimation. 
 
-```{r echo = TRUE, eval = TRUE}
+```{r}
 summary(dbuf)
 ```
 
@@ -229,34 +229,30 @@ Finally, `summary` produces information on aggregrate quantities of interest.  T
 
 `eiread` extracts quantities of interest in a list format from the object `dbuf`.  For example, 
 
-```{r echo = TRUE, eval = TRUE}
+```{r}
 bb.out <- eiread(dbuf, "betab", "sbetab")
 ```
 
- extracts the point estimates and estimated standard deviations for $\beta_i^b$, the estimates of the proportion of registered blacks in each county.  The user can then use \verb#bb.out$betab# to obtain a vector of the point estimates for $\beta_i^b$, and \verb#bb.out$sbetab# to obtain a vector of the standard devations for $\beta_i^b$.  
+ extracts the point estimates and estimated standard deviations for $\beta_i^b$, the estimates of the proportion of registered blacks in each county.  The user can then use `bb.out$betab` to obtain a vector of the point estimates for $\beta_i^b$, and `bb.out$sbetab` to obtain a vector of the standard devations for $\beta_i^b$.  
 \newline
-\verb#eiread()# takes any number of arguments to extract any number of quantities of interest from the data buffer.  \verb#?eiread# can be used to find a list of quantities of interest that are available in `ei`.  Among the most useful arguments are \verb#"betab"# and \verb#"betaw"#, which report the point estimates; \verb#"sbetab"# and \verb#"sbetaw"#, which report the standard deviations of the point estimates; and \verb#"CI80b# and \verb#"CI80w"#, which report the confidence intervals of the point estimates.  
+`eiread()` takes any number of arguments to extract any number of quantities of interest from the data buffer.  `?eiread` can be used to find a list of quantities of interest that are available in `ei`.  Among the most useful arguments are `"betab"` and `"betaw"`, which report the point estimates; `"sbetab"` and `"sbetaw"`, which report the standard deviations of the point estimates; and `"CI80b` and `"CI80w"`, which report the confidence intervals of the point estimates.  
 
 ## Plotting in EI
 
 Plotting `ei` output is extremely useful for understanding the results of the ecological inference algorithm and diagnosing problems with estimation.  First, we graph a tomography plot of the data (Figure 1).
 
-```{r echo = TRUE, eval = FALSE}
+```{r, eval = FALSE}
 plot(dbuf, "tomog")
 ```
 
-```{r results = tex, echo = FALSE, eval = FALSE} 
-png("tomogplot.png", width = 6, height = 6, pointsize = 10)
+```{r echo = FALSE, eval = FALSE} 
 plot(dbuf, "tomog")
-invisible(dev.off())
 ```
 
 ![Tomography Plot with ML Contours](tomogplot.png) 
 
-```{r results = tex, echo = FALSE, eval = FALSE}
-png("tomogplot2.png", width = 14, height = 6, pointsize = 10)
+```{r echo = FALSE, eval = FALSE}
 plot(dbuf, "tomogE", "tomogCI")
-invisible(dev.off())
 ```
 
 ![Tomography Plots: Point Estimates (left) and Confidence Intervals (right)](tomogplot2.png)
@@ -265,7 +261,7 @@ invisible(dev.off())
 \newline
 Figure 2 is a double plot of the point estimates and their confidence intervals.  To compute this, we call plot to generate two graphs: a tomography plot with the point estimates generated from the algorithm, and a tomography plot with 80\% confidence intervals on the point estimate.  
 
-```{r echo = TRUE, eval = FALSE}
+```{r, eval = FALSE}
 plot(dbuf, "tomogE", "tomogCI")
 ```
 
@@ -273,7 +269,7 @@ plot(dbuf, "tomogE", "tomogCI")
 \newline
 Figure 3 shows plots that indicate the distribution of $\beta_i^b$ and $\beta_i^w$. To produce these plots, run:
 
-```{r echo = TRUE, eval = FALSE}
+```{r, eval = FALSE}
 plot(dbuf, "betab", "betaw")
 ```
 
@@ -281,27 +277,23 @@ plot(dbuf, "betab", "betaw")
 \newline
 Figure 4 portrays the results of the `ei` algorithm by plotting the proportion of blacks in each country by the proportion of registered voters in each county.  To produce this plot, use:
 
-```{r echo = TRUE,eval = FALSE}
+```{r, eval = FALSE}
 plot(dbuf, "xtfit")
 ```
 
  The circles around each of the points in this plot are proportional to the population of each county.  The graph represents the likelihood estimates by plotting the expected number of registered voters given the proportion of blacks in each county, represented by the yellow line. The red lines in the plot are the 80\% confidence interval around the regression line.  The higher uncertainty in the estimates of black registration can be seen by the absence of points on the right hand side of the graph and the larger confidence interval on the right hand side of the graph, where the proportion of blacks in the county is relatively large.  
 
 
-```{r results = tex, echo = FALSE, eval = FALSE} 
-png("betas.png", width = 14, height = 6, pointsize = 10)
+```{r echo = FALSE, eval = FALSE} 
 plot(dbuf, "betab", "betaw")
-invisible(dev.off())
 ```
 
 ![Plots with Distribution of Point Estimates for $\beta_i^b$ (left) and $\beta_i^w$ (right), for all $i$](betas.png)
 
 
 
-```{r results = tex, echo = FALSE, eval = FALSE} 
-png("xtfit.png", width = 6, height = 6, pointsize = 10)
+```{r echo = FALSE, eval = FALSE} 
 plot(dbuf, "xtfit")
-invisible(dev.off())
 ```
 
 ![X and T Scatterplot with E(T|X) and 80\% CIs](xtfit.png) 
@@ -310,7 +302,7 @@ invisible(dev.off())
 \pagebreak
  Finally, if we have data on the true proportions of registered blacks and registered whites in each county, as we do in this dataset, we can use plots in `ei` to assess how well the algorithm works on the given data.  To do this, rerun the `ei` algorithm, adding the truth vectors, \verb#tb# and `tw` as the truth argument.
 
-```{r echo = TRUE, eval = TRUE}
+```{r}
 truth <- cbind(matproii$tb, matproii$tw)
 formula <- t ~ x
 dbuf <- ei(formula = formula, total = "n", data = matproii, truth = truth)
@@ -318,7 +310,8 @@ dbuf <- ei(formula = formula, total = "n", data = matproii, truth = truth)
 
 Then use plot to compare the estimates of the `ei` algorithm to the true proportions of white and black registered voters in each county.
 
-```{r echo = TRUE, eval = TRUE}
+TODO: set eval = TRUE
+```{r, eval = FALSE}
 plot(dbuf, "truth")
 ```
 
@@ -327,10 +320,8 @@ The "truth" plot (Figure 5) has four components.  The top two figures have the p
 
 The bottom two figures in Figure 5 plot the estimated values of $\beta_i^b$ and $\beta_i^w$ against the true values.  The size of each of the circles plotted is proportional to the number of blacks in the county in the first graph and the number of whites in each county in the second graph. If the estimated values were exactly equal to the true values, all of the points would be on the $45^{\circ}$ line.  Because the points fall quite close to the $45^{\circ}$ and do not deviate from the line in a systematic way, we can see that the `ei` algorithm predicts the point estimates quite well.
 
-```{r results = tex, echo = FALSE, eval = FALSE} 
-png("truth2.png", width = 6, height = 6, pointsize = 10)
+```{r echo = FALSE, eval = FALSE} 
 plot(dbuf, "truth")
-invisible(dev.off())
 ```
 
 Comparing Estimates to the Truth at the County Level
@@ -346,24 +337,24 @@ Although the 2x2 case is useful in many circumstances, eiR also allows users to 
 for the 2x3 table: `turnout` is the number of people in each precinct who turned out to vote, `noturnout` is the number of people in each precinct that did not turn out to vote, `white` is the number of people who are white in the precinct, `black` is the number of people who are black in the precinct, and `hisp` is the number of people who are hispanic in the precinct. Note that, different that the 2x2 case, these are the numbers of people rather than proportions.  The user can include proportions if they want to, but then must include the argument `total` for the the total number of people in the precinct. 
 
  To begin, we load the RxC data from the `ei` library.
-```{r echo = TRUE, eval = FALSE}
+```{r, eval = FALSE}
 data(RxCdata)
 ```
 
 The formula for the eiRxC case tells the program which variables go on each side of the table.  In this example, we have turnout and no turnout on one side of the table, and white, black and hispanic on the other side.  Therefore, our formula is:
 
-```{r echo = TRUE, eval = FALSE}
+```{r, eval = FALSE}
 formula <- cbind(turnout, noturnout) ~ cbind(white, black, hisp)
 ```
 
 We can call this formula using ei:
-```{r echo = TRUE, eval = FALSE}
+```{r, eval = FALSE}
 dbuf <- ei(formula, data = RxCdata)
 ```
 
 The MCMC output for the $\beta$'s can be found in the data buffer \verb#dbuf#.  \verb#dbuf$draws$Beta# is a matrix that contains the simulations for each of the $\beta$'s for each precinct.  Since there are 60 precincts in this dataset and 6 quantities of interest, the number of columns of \verb#dbuf$draws$Beta# is $60*6 = 360$.  We can analyze the MCMC output by picking out which $\beta$ we are interested at any given time.  For example, to look at the MCMC output for the estimated percent white turnout for the third precinct we can use the R code:
 
-```{r echo = TRUE, eval = FALSE}
+```{r, eval = FALSE}
 out <- dbuf$draws$Beta[, "beta.white.turnout.3"]
 summary(out)
 ```
@@ -388,7 +379,7 @@ Sample size per chain = 1000
 \end{verbatim}
 
 We can also plot this MCMC output to assess convergence:
-```{r echo = TRUE, eval = FALSE}
+```{r, eval = FALSE}
 plot(out)
 ```
 
@@ -423,7 +414,7 @@ RxC model.
  In the 2x3 case, we can do this by using the function
 `tomogRxC`. Following the code above, using the `RxCdata`,
 
-```{r echo = TRUE, eval = FALSE}
+```{r, eval = FALSE}
 formula <- cbind(turnout, noturnout) ~ cbind(white, black, hisp)
 tomogRxC(formula, RxCdata)
 ```
@@ -454,7 +445,7 @@ formula, we can create another tomography plot that expores the
 deterministic information for percent white turnout and percent
 hispanic turnout.
 
-```{r echo = TRUE, eval = FALSE}
+```{r, eval = FALSE}
 formula <- cbind(turnout, noturnout) ~ cbind(white, hisp, black)
 tomogRxC(formula, RxCdata)
 ```
@@ -466,7 +457,7 @@ With this new tomography plot (in Figure 8), we find very similar results to the
 
 Last, we can plot the remaining two quantities of interest -- percent black turnout and percent hispanic turnout-- against each other:
 
-```{r echo = TRUE, eval = FALSE}
+```{r, eval = FALSE}
 formula <- cbind(turnout, noturnout) ~ cbind(hisp, black, white)
 tomogRxC(formula, RxCdata)
 ```

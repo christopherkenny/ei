@@ -1,6 +1,6 @@
 template:
   params:
-    bootswatch: journal
+    bootswatch: cosmo
 reference:
 - title: "Functions"
   desc: "ei Functions"

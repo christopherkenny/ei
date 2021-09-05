@@ -31,6 +31,10 @@ Last Updated: 2021.09.04
 
 - [ ] .samp rewrite in Rcpp
 
+### Input check
+
+- [ ] ei(): check the `total` argument
+
 ## Plotting
 Replace base R plots with ggplots
 

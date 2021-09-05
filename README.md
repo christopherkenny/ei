@@ -30,6 +30,8 @@ Last Updated: 2021.09.04
 ### Functions
 
 - [ ] .samp rewrite in Rcpp
+- [ ] Add `print.ei` for `"ei"` class objects
+- [ ] Allowing users to extract values used in the plot for customization
 
 ### Input check
 

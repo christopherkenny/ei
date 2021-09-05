@@ -68,3 +68,6 @@ Replace base R plots with ggplots
 - [ ] eiread
 - [ ] tomogRxC
 - [ ] tomogRxC3d
+
+### Data
+- [ ] rename sample (avoid overlaps with base:: functions)

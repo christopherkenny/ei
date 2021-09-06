@@ -70,5 +70,10 @@ Replace base R plots with ggplots
 - [ ] tomogRxC3d
 - [ ] plot
 
+
+### Data
+- [ ] rename sample (avoid overlaps with base:: functions)
+
+
 ### Minor points
 - [ ] `message()` instead of `print()` (right now both are used)

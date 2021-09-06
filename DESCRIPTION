@@ -27,7 +27,8 @@ Imports:
 Suggests: 
     rmarkdown,
     knitr,
-    rgl
+    rgl,
+    testthat
 License: GPL (>= 2)
 URL: http://gking.harvard.edu/eiR, http://gking.harvard.edu/eicamera/kinroot.html
 RoxygenNote: 7.1.1

@@ -218,7 +218,6 @@
 # Functions for plotting
 
 # Tomography plot
-
 .tomog <- function(ei.object, title = "Tomography Plot with the Data", lci = T) {
   x <- ei.object$x
   t <- ei.object$t

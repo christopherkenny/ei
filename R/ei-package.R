@@ -4,7 +4,6 @@
 #' @importFrom stats var weighted.mean
 #' @importFrom utils head
 #' @importFrom eiPack bounds ei.MD.bayes
-#' @importFrom foreach foreach %dopar%
 #' @importFrom ellipse ellipse
 #' @importFrom mvtnorm dmvnorm rmvnorm pmvnorm
 #' @importFrom cubature adaptIntegrate
@@ -13,4 +12,13 @@
 #' @importFrom ucminf ucminf
 #' @importFrom plotrix draw.circle
 #' @importFrom msm rtnorm
+#' @importFrom ggplot2 aes
+#' @importFrom dplyr %>% .data
 NULL
+
+## usethis namespace: start
+#' @importFrom tibble tibble
+## usethis namespace: end
+NULL
+
+utils::globalVariables(c('b_bounds', 'w_bounds'))

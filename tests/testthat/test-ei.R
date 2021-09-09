@@ -1,6 +1,5 @@
 # Test for the `ei()` function
 
-context("`ei()` function")
 data(matproii)
 data(RxCdata)
 
